@@ -14,13 +14,12 @@
         
         :root {
             --bg-base:    #F0F2F5;
-            --glass-bg:   rgba(255, 255, 255, 0.4);
-            --glass-border: rgba(255, 255, 255, 0.6);
-            --glass-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.05);
+            --glass-bg:   rgba(255, 255, 255, 0.12);
+            --glass-border: rgba(255, 255, 255, 0.25);
+            --glass-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.04);
             --text:       #1A1C1E;
             --muted:      #6A6E73;
             --accent:     #5A7A96;
-            --accent-light: rgba(90, 122, 150, 0.08);
             --side-pad: clamp(40px, 8vw, 120px);
             --section-gap: clamp(100px, 15vw, 180px);
         }
@@ -54,19 +53,17 @@
 
         .star {
             position: absolute;
-            fill: rgba(255, 255, 255, 0.4); 
-            stroke: rgba(255, 255, 255, 0.9); 
-            stroke-width: 1.2; /* 小さくなる分、線を少しだけ太くして存在感を維持 */
-            /* 発光をよりシャープに */
-            filter: drop-shadow(0 0 8px rgba(255, 255, 255, 0.9)) drop-shadow(0 0 3px rgba(255, 255, 255, 0.5));
+            fill: rgba(255, 255, 255, 0.3); 
+            stroke: rgba(255, 255, 255, 0.8); 
+            stroke-width: 1.2;
+            filter: drop-shadow(0 0 8px rgba(255, 255, 255, 0.7));
             animation: twinkle var(--duration) ease-in-out infinite, rotate var(--rot-duration) linear infinite;
             opacity: 0;
-            backdrop-filter: blur(1px);
         }
 
         @keyframes twinkle {
-            0%, 100% { opacity: 0.2; transform: scale(0.7); }
-            50% { opacity: 0.9; transform: scale(1.15); } /* 明暗の差を強める */
+            0%, 100% { opacity: 0.1; transform: scale(0.6); }
+            50% { opacity: 0.8; transform: scale(1.1); }
         }
 
         @keyframes rotate {
@@ -87,15 +84,25 @@
         nav {
             position: fixed; top: 0; left: 0; right: 0; z-index: 1000;
             display: flex; justify-content: space-between; align-items: center;
-            padding: 20px var(--side-pad);
-            border-bottom: 1px solid var(--glass-border);
-            background: rgba(255, 255, 255, 0.3);
+            padding: 24px var(--side-pad);
+            background: rgba(255, 255, 255, 0.1);
             backdrop-filter: blur(12px);
             -webkit-backdrop-filter: blur(12px);
         }
-        .nav-logo { font-size: 10px; font-weight: 600; letter-spacing: .2em; text-transform: uppercase; }
+        
+        .nav-logo { 
+            font-size: 10px; 
+            font-weight: 600; 
+            letter-spacing: .2em; 
+            text-transform: uppercase; 
+            color: var(--text);
+            text-decoration: none;
+            transition: opacity 0.3s;
+        }
+        .nav-logo:hover { opacity: 0.6; }
+
         .nav-links { display: flex; gap: 30px; }
-        .nav-links a { font-size: 9px; font-weight: 500; letter-spacing: .1em; text-transform: uppercase; color: var(--muted); transition: 0.3s; }
+        .nav-links a { font-size: 9px; font-weight: 500; letter-spacing: .1em; text-transform: uppercase; color: var(--muted); transition: 0.3s; text-decoration: none; }
         .nav-links a:hover { color: var(--text); }
 
         #hero { 
@@ -136,33 +143,36 @@
             backdrop-filter: blur(4px);
         }
 
-        .section { padding: var(--section-gap) var(--side-pad); border-top: 1px solid var(--glass-border); position: relative; z-index: 1; }
+        .section { padding: var(--section-gap) var(--side-pad); position: relative; z-index: 1; }
         .section-header { margin-bottom: 60px; display: flex; align-items: baseline; gap: 15px; }
         .section-num { font-size: 11px; font-weight: 600; color: var(--accent); letter-spacing: 0.2em; }
         .section-title { font-size: 12px; font-weight: 600; letter-spacing: .2em; text-transform: uppercase; }
 
         .skills-grid { 
             display: grid; 
-            grid-template-columns: repeat(2, 1fr); /* 常に2段表示 */
+            grid-template-columns: repeat(2, 1fr); 
             gap: 1px;
             background: var(--glass-border);
             border: 1px solid var(--glass-border);
-            border-radius: 12px;
+            border-radius: 20px;
             overflow: hidden;
             box-shadow: var(--glass-shadow);
         }
         .skill-card {
             background: var(--glass-bg);
-            padding: 45px 40px;
+            padding: 50px 40px;
             transition: all 0.4s ease;
             display: flex;
             flex-direction: column;
             gap: 12px;
-            backdrop-filter: blur(8px);
+            backdrop-filter: blur(30px);
+            -webkit-backdrop-filter: blur(30px);
         }
-        .skill-card:hover { background: rgba(255, 255, 255, 0.7); }
+        .skill-card:hover { background: rgba(255, 255, 255, 0.22); }
+        
+        /* RESTORED: The square badge for icons */
         .skill-badge {
-            width: 38px; height: 38px;
+            width: 42px; height: 42px;
             border: 1.5px solid var(--text);
             display: flex; align-items: center; justify-content: center;
             font-size: 11px; font-weight: 700; margin-bottom: 12px;
@@ -181,9 +191,8 @@
             transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
             text-decoration: none;
             color: inherit;
-            position: relative;
         }
-        .work-item:hover { background: var(--accent-light); padding-left: 40px; }
+        .work-item:hover { background: rgba(90, 122, 150, 0.08); padding-left: 40px; }
         .work-num { font-size: 11px; color: var(--muted); opacity: 0.5; }
         .work-title { font-size: 18px; font-weight: 400; }
         .work-cat { font-size: 9px; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: var(--accent); }
@@ -205,10 +214,34 @@
         .career-list li { font-size: 13px; color: var(--muted); display: flex; gap: 10px; }
         .career-list li::before { content: "—"; color: var(--accent); }
 
+        .profile-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1px;
+            background: var(--glass-border);
+            border: 1px solid var(--glass-border);
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: var(--glass-shadow);
+        }
+        .profile-cell {
+            background: var(--glass-bg);
+            padding: 45px 40px;
+            backdrop-filter: blur(30px);
+            -webkit-backdrop-filter: blur(30px);
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+        .profile-label { font-size: 10px; font-weight: 600; letter-spacing: 0.2em; text-transform: uppercase; color: var(--accent); margin-bottom: 4px; display: block; }
+        .profile-value { font-size: 16px; font-weight: 300; color: var(--text); line-height: 1.6; }
+        .profile-contact { font-size: 16px; color: var(--text); text-decoration: none; border-bottom: 1px solid var(--muted); padding-bottom: 2px; transition: 0.3s; }
+        .profile-contact:hover { border-color: var(--accent); color: var(--accent); }
+
         footer {
-            padding: 60px var(--side-pad) 120px;
-            border-top: 1px solid var(--glass-border);
-            display: flex; justify-content: space-between;
+            padding: 80px var(--side-pad) 120px;
+            display: flex; 
+            justify-content: center;
             font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted);
             position: relative; z-index: 1;
         }
@@ -219,8 +252,8 @@
         }
 
         @media (max-width: 768px) {
-            :root { --section-gap: 100px; }
-            nav { padding: 15px 20px; }
+            :root { --section-gap: 80px; }
+            nav { padding: 20px; }
             .nav-links { display: none; }
             .hero-name { font-size: 52px; }
             .hero-bottom { flex-direction: column; align-items: flex-start; }
@@ -229,7 +262,9 @@
             .work-item { grid-template-columns: 1fr; gap: 10px; padding: 30px 0; }
             .work-num, .work-desc { display: none; }
             .work-link { justify-self: start; }
-            .skill-card { padding: 30px 20px; }
+            .skill-card { padding: 35px 25px; }
+            .profile-grid { grid-template-columns: 1fr; }
+            .profile-cell { padding: 35px 25px; }
         }
     </style>
 </head>
@@ -238,12 +273,13 @@
     <div class="star-container" id="starContainer"></div>
 
     <nav>
-        <div class="nav-logo">KATAOKA NARUMI</div>
+        <a href="#hero" class="nav-logo">KATAOKA NARUMI</a>
         <div class="nav-links">
             <a href="#hero">Top</a>
             <a href="#skills">Skills</a>
             <a href="#works">Works</a>
             <a href="#career">Career</a>
+            <a href="#profile">Profile</a>
         </div>
     </nav>
 
@@ -390,9 +426,43 @@
                     <div>
                         <h3 class="career-main-title">Illustrator</h3>
                         <ul class="career-list">
-                            <li>個展開催/グッズ制作</li>
+                            <li>広告・書籍向けイラスト制作</li>
                             <li>キャラクターデザイン</li>
                         </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="section" id="profile">
+            <div class="section-header reveal">
+                <span class="section-num">04</span>
+                <h2 class="section-title">Personal Profile</h2>
+            </div>
+            <div class="profile-grid reveal">
+                <div class="profile-cell">
+                    <span class="profile-label">Identity</span>
+                    <div class="profile-value">
+                        Kataoka Narumi<br>
+                        1995.04.22 | Tokyo
+                    </div>
+                </div>
+                <div class="profile-cell">
+                    <span class="profile-label">Focus</span>
+                    <div class="profile-value">
+                        Design | Illust | Management
+                    </div>
+                </div>
+                <div class="profile-cell">
+                    <span class="profile-label">Contact</span>
+                    <div class="profile-value">
+                        <a href="mailto:naru06ymnc@gmail.com" class="profile-contact">naru06ymnc@gmail.com</a>
+                    </div>
+                </div>
+                <div class="profile-cell">
+                    <span class="profile-label">Call</span>
+                    <div class="profile-value">
+                        080(3604)1796
                     </div>
                 </div>
             </div>
@@ -401,23 +471,21 @@
 
     <footer>
         <div>&copy; 2024 KATAOKA NARUMI.</div>
-        <a href="#hero">Back to Top ↑</a>
     </footer>
 
     <script>
         function createStars() {
             const container = document.getElementById('starContainer');
-            const starCount = 45; // サイズを小さくする分、数を少し増やして密度を調整
+            const starCount = 50;
             
             for (let i = 0; i < starCount; i++) {
                 const star = document.createElementNS("http://www.w3.org/2000/svg", "svg");
-                // サイズを大幅に小さく設定 (8px 〜 22px 程度)
-                const size = Math.random() * 14 + 8; 
+                const size = Math.random() * 12 + 6; 
                 const top = Math.random() * 100;
                 const left = Math.random() * 100;
-                const duration = Math.random() * 3 + 2; // 明滅の間隔を少し早める
-                const rotDuration = Math.random() * 15 + 20;
-                const delay = Math.random() * 10;
+                const duration = Math.random() * 4 + 3; 
+                const rotDuration = Math.random() * 15 + 25;
+                const delay = Math.random() * 8;
 
                 star.setAttribute("viewBox", "0 0 50 50");
                 star.setAttribute("class", "star");
@@ -429,8 +497,8 @@
                 star.style.setProperty('--rot-duration', `${rotDuration}s`);
                 star.style.animationDelay = `${delay}s`;
 
-                // 五芒星 (Pentagram) のパス
                 const path = document.createElementNS("http://www.w3.org/2000/svg", "path");
+                // Pentagram Path
                 path.setAttribute("d", "M25 2 L32.5 17.5 L49.5 19.5 L37 31 L40.5 48 L25 39.5 L9.5 48 L13 31 L0.5 19.5 L17.5 17.5 Z");
                 
                 star.appendChild(path);
@@ -441,7 +509,7 @@
         const revealElements = document.querySelectorAll('.reveal');
         const observerOptions = {
             threshold: 0.1,
-            rootMargin: '0px 0px -50px 0px'
+            rootMargin: '0px 0px -60px 0px'
         };
 
         const observer = new IntersectionObserver((entries) => {
@@ -459,7 +527,7 @@
         window.addEventListener('load', () => {
             createStars();
             
-            // STUDIOなどのiframe内での表示不備を防ぐための即時チェック
+            // STUDIO iframe stability
             setTimeout(() => {
                 revealElements.forEach(el => {
                     const rect = el.getBoundingClientRect();
@@ -467,11 +535,7 @@
                         el.classList.add('active');
                     }
                 });
-                
-                // STUDIO iframe auto-height adjustment
-                const height = document.documentElement.scrollHeight;
-                window.parent.postMessage({ frameHeight: height }, '*');
-            }, 500);
+            }, 600);
         });
     </script>
 </body>
